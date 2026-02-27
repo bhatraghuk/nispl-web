@@ -1,0 +1,472 @@
+'use client'
+
+import Link from 'next/link'
+import { ArrowRight, Target, Eye, Users, Globe, Rocket, Code, Lightbulb, CheckCircle2 } from 'lucide-react'
+import { Button } from '@/components/ui/cta-button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import PageWrapper from '@/components/page-wrapper'
+import FadeIn from '@/components/animations/fade-in'
+import StaggeredChildren from '@/components/animations/staggered-children'
+import Counter from '@/components/animations/counter'
+
+export default function About() {
+  const values = [
+    {
+      icon: Lightbulb,
+      title: 'Innovation First',
+      description: 'We constantly push boundaries, adopting emerging technologies to deliver cutting-edge solutions.',
+    },
+    {
+      icon: Target,
+      title: 'Results-Driven',
+      description: 'Every decision we make is focused on delivering measurable business outcomes for our clients.',
+    },
+    {
+      icon: Users,
+      title: 'Client Partnership',
+      description: 'We view ourselves as strategic partners, not just vendors, invested in your long-term success.',
+    },
+    {
+      icon: Code,
+      title: 'Technical Excellence',
+      description: 'We maintain the highest standards of code quality, security, and performance in everything we build.',
+    },
+  ]
+
+  const methodology = [
+    {
+      step: '01',
+      title: 'Discovery',
+      description: 'Deep dive into your business challenges, goals, and technical requirements.',
+    },
+    {
+      step: '02',
+      title: 'Strategy',
+      description: 'Develop a comprehensive roadmap with clear milestones and success metrics.',
+    },
+    {
+      step: '03',
+      title: 'Development',
+      description: 'Agile development with continuous integration, testing, and client feedback loops.',
+    },
+    {
+      step: '04',
+      title: 'Deployment',
+      description: 'Seamless deployment with monitoring, maintenance, and ongoing optimization.',
+    },
+  ]
+
+  const leadership = [
+    {
+      name: 'Amit Sharma',
+      role: 'Founder & CEO',
+      bio: '15+ years in technology leadership. Previously led digital transformation at Fortune 500 companies.',
+    },
+    {
+      name: 'Priya Patel',
+      role: 'CTO',
+      bio: 'AI/ML expert with Ph.D. in Computer Science. 20+ patents in machine learning and natural language processing.',
+    },
+    {
+      name: 'Rahul Verma',
+      role: 'VP Engineering',
+      bio: 'Scaled engineering teams from 5 to 100+. Expert in cloud architecture and DevOps best practices.',
+    },
+  ]
+
+  const stats = [
+    { value: 150, label: 'Projects Delivered', suffix: '+' },
+    { value: 50, label: 'Global Clients', suffix: '+' },
+    { value: 8, label: 'Years in Business', suffix: '+' },
+    { value: 120, label: 'Team Members', suffix: '+' },
+  ]
+
+  return (
+    <PageWrapper>
+      {/* Hero Section */}
+      <section className="relative py-24 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="max-w-4xl mx-auto text-center">
+              <Badge className="mb-6 px-4 py-1.5 bg-primary/10 text-primary border-primary/20">
+                About Us
+              </Badge>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
+                Building Technology That Works <br />— Today and Tomorrow.
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                We are a digital engineering company focused on designing scalable systems that help businesses operate smarter, move faster, and grow sustainably.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-muted/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <StaggeredChildren className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-4xl md:text-5xl font-bold gradient-text mb-2">
+                  <Counter from={0} to={stat.value} suffix={stat.suffix} duration={2.5} />
+                </div>
+                <p className="text-muted-foreground">{stat.label}</p>
+              </div>
+            ))}
+          </StaggeredChildren>
+        </div>
+      </section>
+
+      {/* Company Overview */}
+      <section className="py-24 lg:py-32">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <FadeIn direction="left">
+              <div>
+                <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                  Who We Are
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                  A Technology Partner for the AI Era
+                </h2>
+                <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+                  <p>
+                    Founded in 2016, Netiquette Info Solutions Pvt. Ltd. has grown from a small team of passionate developers into a leading AI-driven digital transformation company.
+                  </p>
+                  <p>
+                    We recognized early that the future of technology lies in intelligent systems that learn, adapt, and evolve. This conviction drives everything we do — from the technologies we master to the solutions we deliver.
+                  </p>
+                  <p>
+                    Today, we partner with enterprises and funded startups worldwide, helping them harness the power of AI to automate processes, gain predictive insights, and create exceptional digital experiences.
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="right" delay={0.2}>
+              <div className="relative">
+                <img
+                  src="/images/about-team.png"
+                  alt="Our Team"
+                  className="rounded-2xl shadow-2xl border border-border/20"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent rounded-2xl" />
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision & Mission */}
+      <section className="py-24 lg:py-32 bg-muted/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <FadeIn direction="left">
+              <Card className="h-full border-border/50 hover:border-primary/30 transition-colors duration-300">
+                <CardHeader>
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                    <Eye className="h-7 w-7 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl mb-4">Our Vision</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    To be the global leader in AI-powered digital transformation, enabling businesses of all sizes to harness intelligent systems that drive sustainable growth and innovation.
+                  </p>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            <FadeIn direction="right" delay={0.2}>
+              <Card className="h-full border-border/50 hover:border-primary/30 transition-colors duration-300">
+                <CardHeader>
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                    <Target className="h-7 w-7 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl mb-4">Our Mission</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    To deliver exceptional AI-powered solutions through technical excellence, strategic partnership, and relentless innovation, helping our clients achieve measurable business outcomes.
+                  </p>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* AI-First Philosophy */}
+      <section className="py-24 lg:py-32">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                Our Philosophy
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                AI-First Engineering Approach
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                We don't add AI as an afterthought — we build it into the foundation of every system.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <FadeIn direction="left" delay={0.1}>
+              <Card className="h-full border-border/50 hover:border-primary/30 transition-colors duration-300">
+                <CardHeader>
+                  <CardTitle className="text-xl mb-2">Predictive Intelligence</CardTitle>
+                  <CardDescription className="text-base">
+                    Our systems anticipate user needs and business trends, enabling proactive rather than reactive operations.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </FadeIn>
+
+            <FadeIn direction="right" delay={0.2}>
+              <Card className="h-full border-border/50 hover:border-primary/30 transition-colors duration-300">
+                <CardHeader>
+                  <CardTitle className="text-xl mb-2">Automated Excellence</CardTitle>
+                  <CardDescription className="text-base">
+                    We build self-optimizing systems that continuously improve performance and reduce operational overhead.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </FadeIn>
+
+            <FadeIn direction="left" delay={0.3}>
+              <Card className="h-full border-border/50 hover:border-primary/30 transition-colors duration-300">
+                <CardHeader>
+                  <CardTitle className="text-xl mb-2">Data-Driven Decisions</CardTitle>
+                  <CardDescription className="text-base">
+                    Every feature we build is informed by data analytics and machine learning insights.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </FadeIn>
+
+            <FadeIn direction="right" delay={0.4}>
+              <Card className="h-full border-border/50 hover:border-primary/30 transition-colors duration-300">
+                <CardHeader>
+                  <CardTitle className="text-xl mb-2">Scalable Intelligence</CardTitle>
+                  <CardDescription className="text-base">
+                    Our AI systems grow with your business, handling increased complexity without compromising performance.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Values */}
+      <section className="py-24 lg:py-32 bg-muted/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                Our Values
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                Guided by Principles, Driven by Purpose
+              </h2>
+            </div>
+          </FadeIn>
+
+          <StaggeredChildren className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value, index) => (
+              <Card key={index} className="text-center hover:glow-effect transition-all duration-300 border-border/50 hover:border-primary/30 h-full">
+                <CardHeader>
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <value.icon className="h-7 w-7 text-primary" />
+                  </div>
+                  <CardTitle className="text-lg">{value.title}</CardTitle>
+                  <CardDescription className="text-sm">
+                    {value.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </StaggeredChildren>
+        </div>
+      </section>
+
+      {/* Development Methodology */}
+      <section className="py-24 lg:py-32">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                Our Process
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                Proven Development Methodology
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                A systematic approach to delivering high-quality, scalable solutions on time and on budget.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {methodology.map((step, index) => (
+              <FadeIn key={index} direction="up" delay={index * 0.1}>
+                <div className="relative">
+                  <div className="text-7xl font-bold text-primary/10 absolute -top-4 -left-2 -z-10">
+                    {step.step}
+                  </div>
+                  <div className="relative">
+                    <h3 className="text-xl font-bold mb-3">{step.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Global Delivery */}
+      <section className="py-24 lg:py-32 bg-muted/20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <FadeIn direction="left">
+              <div>
+                <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                  Global Presence
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                  Global Delivery Model
+                </h2>
+                <div className="space-y-4 text-muted-foreground text-lg leading-relaxed">
+                  <p>
+                    With teams across India, the US, and Europe, we provide round-the-clock development support and seamless collaboration across time zones.
+                  </p>
+                  <p>
+                    Our distributed delivery model combines the cost-effectiveness of offshore development with the responsiveness of local teams, ensuring you get the best of both worlds.
+                  </p>
+                </div>
+
+                <ul className="mt-8 space-y-3">
+                  {[
+                    '24/7 development cycles',
+                    'Distributed agile teams',
+                    'Transparent communication',
+                    'Cultural alignment',
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-center">
+                      <CheckCircle2 className="h-5 w-5 text-primary mr-3 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+
+            <FadeIn direction="right" delay={0.2}>
+              <Card className="border-border/50">
+                <CardHeader>
+                  <Globe className="h-12 w-12 text-primary mb-4" />
+                  <CardTitle>Operational Hubs</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-1">Bangalore, India</h4>
+                    <p className="text-sm text-muted-foreground">Engineering & Development Center</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">New York, USA</h4>
+                    <p className="text-sm text-muted-foreground">Client Success & Sales</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-1">London, UK</h4>
+                    <p className="text-sm text-muted-foreground">European Operations</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Leadership */}
+      <section className="py-24 lg:py-32">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
+                Leadership
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                Meet Our Leadership Team
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Experienced technologists and business leaders committed to your success.
+              </p>
+            </div>
+          </FadeIn>
+
+          <StaggeredChildren className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {leadership.map((leader, index) => (
+              <Card key={index} className="text-center hover:glow-effect transition-all duration-300 border-border/50 hover:border-primary/30 h-full">
+                <CardHeader>
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-primary">
+                      {leader.name.charAt(0)}
+                    </span>
+                  </div>
+                  <CardTitle className="text-lg">{leader.name}</CardTitle>
+                  <Badge variant="outline" className="mb-3">{leader.role}</Badge>
+                  <CardDescription className="text-sm leading-relaxed">
+                    {leader.bio}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            ))}
+          </StaggeredChildren>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 lg:py-32 bg-gradient-to-b from-primary/10 via-background to-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn direction="up">
+            <div className="max-w-4xl mx-auto text-center">
+              <Rocket className="h-16 w-16 text-primary mx-auto mb-6" />
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                Let's Build Something Exceptional Together
+              </h2>
+              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                Ready to transform your business with AI-powered solutions? Let's start the conversation.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link href="/contact">
+                  <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full px-8 py-6 text-lg h-auto">
+                    Get in Touch
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link href="/services">
+                  <Button size="lg" variant="outline" className="rounded-full px-8 py-6 text-lg h-auto">
+                    Explore Services
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+    </PageWrapper>
+  )
+}
