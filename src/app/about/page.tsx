@@ -1,14 +1,38 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/cta-button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel'
 import PageWrapper from '@/components/page-wrapper'
 import FadeIn from '@/components/animations/fade-in'
 
 export default function About() {
+  const { theme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!carouselApi) return
+
+    const interval = setInterval(() => {
+      try {
+        carouselApi.scrollNext()
+      } catch (e) {
+        // ignore
+      }
+    }, 3000)
+
+    return () => clearInterval(interval)
+  }, [carouselApi])
   return (
     <PageWrapper>
       {/* Hero Section */}
@@ -53,31 +77,51 @@ export default function About() {
           </FadeIn>
 
           <FadeIn direction="up" delay={0.2}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 max-w-6xl mx-auto">
-              {/* Client Logo Placeholders - Replace with actual client logos */}
-              {[
-                { name: 'FinCorp', alt: 'Financial Services Corporation' },
-                { name: 'HealthTech', alt: 'Healthcare Technology Solutions' },
-                { name: 'RetailPro', alt: 'Retail & E-commerce Platform' },
-                { name: 'ManufactureX', alt: 'Manufacturing Excellence' },
-                { name: 'EduLearn', alt: 'Education Learning Platform' },
-                { name: 'LogiTrack', alt: 'Logistics & Supply Chain' },
-                { name: 'DataFlow', alt: 'Data Analytics Company' },
-                { name: 'CloudScale', alt: 'Cloud Infrastructure Provider' },
-                { name: 'SecureNet', alt: 'Cybersecurity Firm' },
-                { name: 'AutoDrive', alt: 'Automotive Technology' },
-                { name: 'EnergyPlus', alt: 'Energy & Utilities' },
-                { name: 'ConnectHub', alt: 'Telecommunications' },
-              ].map((client, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-center p-6 rounded-xl bg-background border border-border/50 hover:border-primary/30 transition-all duration-300 group hover:-translate-y-1"
-                >
-                  <span className="text-lg font-semibold text-muted-foreground group-hover:text-foreground transition-colors">
-                    {client.name}
-                  </span>
-                </div>
-              ))}
+            <div className="max-w-5xl mx-auto">
+              <Carousel
+                opts={{
+                  align: 'center',
+                  loop: true,
+                }}
+                setApi={setCarouselApi}
+                className="w-full"
+              >
+                <CarouselContent className="gap-0 ml-0">
+                  {mounted && [
+                    { id: 21, alt: 'Client Logo 21' },
+                    { id: 23, alt: 'Client Logo 23' },
+                    { id: 26, alt: 'Client Logo 26' },
+                    { id: 27, alt: 'Client Logo 27' },
+                    { id: 31, alt: 'Client Logo 31' },
+                    { id: 32, alt: 'Client Logo 32' },
+                    { id: 33, alt: 'Client Logo 33' },
+                    { id: 34, alt: 'Client Logo 34' },
+                    { id: 35, alt: 'Client Logo 35' },
+                    { id: 38, alt: 'Client Logo 38' },
+                    { id: 39, alt: 'Client Logo 39' },
+                    { id: 41, alt: 'Client Logo 41' },
+                    { id: 42, alt: 'Client Logo 42' },
+                    { id: 44, alt: 'Client Logo 44' },
+                    { id: 45, alt: 'Client Logo 45' },
+                  ].map((client) => {
+                    const isLightMode = theme === 'light'
+                    const suffix = isLightMode ? '-lm' : ''
+                    const imagePath = `/clients/Group%20${client.id}${suffix}.png`
+
+                    return (
+                      <CarouselItem key={client.id} className="pl-0 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 flex items-center justify-center">
+                        <img
+                          src={imagePath}
+                          alt={client.alt}
+                          className="h-20 object-contain mx-auto"
+                        />
+                      </CarouselItem>
+                    )
+                  })}
+                </CarouselContent>
+                <CarouselPrevious className="hidden sm:flex" />
+                <CarouselNext className="hidden sm:flex" />
+              </Carousel>
             </div>
           </FadeIn>
         </div>
