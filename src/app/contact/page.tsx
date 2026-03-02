@@ -20,64 +20,96 @@ export default function Contact() {
     email: '',
     company: '',
     phone: '',
-    projectType: '',
+    service: '',
+    budget: '',
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || ''
-      const endpoint = webhookUrl || '/api/contact'
+  // Your existing form handling code...
+  // (keep whatever you already have here)
 
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to send message')
-      }
-
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-
-      toast({
-        title: "Message Sent!",
-        description: "We'll get back to you within 24 hours.",
-        variant: "default",
-      })
-
-      // Reset form after 3 seconds
-      setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          company: '',
-          phone: '',
-          projectType: '',
-          message: '',
-        })
-        setIsSubmitted(false)
-      }, 3000)
-    } catch (error) {
-      setIsSubmitting(false)
-      console.error('Error submitting form:', error)
-
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      })
-    }
+  // ── Add this block ────────────────────────────────────────────
+  try {
+    await fetch('https://lead.netiquetteinfo.com/lead-capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:    formData.name,
+        email:   formData.email,
+        phone:   formData.phone,
+        company: formData.company,
+        service: formData.service,   // maps projectType → service
+        budget:  formData.budget,
+        source:  'Website Contact Form',
+        message: formData.message,       // bonus context
+      }),
+    });
+  } catch (err) {
+    console.error('Lead capture error:', err);
+    // Silent fail — don't show errors to the user for this
   }
+  // ──────────────────────────────────────────────────────────────
+};
+
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   setIsSubmitting(true)
+
+  //   try {
+  //     const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || ''
+  //     const endpoint = webhookUrl || '/api/contact'
+
+  //     const response = await fetch(endpoint, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(formData),
+  //     })
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to send message')
+  //     }
+
+  //     setIsSubmitting(false)
+  //     setIsSubmitted(true)
+
+  //     toast({
+  //       title: "Message Sent!",
+  //       description: "We'll get back to you within 24 hours.",
+  //       variant: "default",
+  //     })
+
+  //     // Reset form after 3 seconds
+  //     setTimeout(() => {
+  //       setFormData({
+  //         name: '',
+  //         email: '',
+  //         company: '',
+  //         phone: '',
+  //         service: '',
+  //         budget: '',
+  //         message: '',
+  //       })
+  //       setIsSubmitted(false)
+  //     }, 3000)
+  //   } catch (error) {
+  //     setIsSubmitting(false)
+  //     console.error('Error submitting form:', error)
+
+  //     toast({
+  //       title: "Error",
+  //       description: "Failed to send message. Please try again.",
+  //       variant: "destructive",
+  //     })
+  //   }
+  // }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({
@@ -119,7 +151,7 @@ export default function Contact() {
     { day: 'Sunday', hours: 'Closed' },
   ]
 
-  const projectTypes = [
+  const services = [
     'AI & Machine Learning',
     'Web Development',
     'Mobile App Development',
@@ -224,20 +256,32 @@ export default function Contact() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="projectType">Project Type *</Label>
+                      <Label htmlFor="service">Service *</Label>
                       <select
-                        id="projectType"
-                        name="projectType"
-                        value={formData.projectType}
+                        id="service"
+                        name="service"
+                        value={formData.service}
                         onChange={handleChange}
                         required
                         className="w-full px-3 py-2 rounded-md border border-input bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       >
-                        <option value="">Select a project type</option>
-                        {projectTypes.map(type => (
+                        <option value="">Select a service</option>
+                        {services.map(type => (
                           <option key={type} value={type}>{type}</option>
                         ))}
                       </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="budget">Budget</Label>
+                      <Input
+                        id="budget"
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        placeholder="Estimated budget (e.g. $10k - $50k)"
+                        className="bg-background"
+                      />
                     </div>
 
                     <div className="space-y-2">

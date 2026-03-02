@@ -12,3 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap (update `https://netiquetteinfo.com` to your actual site URL)
+Sitemap: https://netiquetteinfo.com/sitemap.xml
+Host: https://netiquetteinfo.com

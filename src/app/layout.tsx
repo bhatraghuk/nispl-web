@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Analytics } from "@/components/analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,9 +44,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="google-site-verification" content="lqFlgdBeNjEmBhmseu9IkGtaudEHgtqOwM3Mr1Refdc" />
+        <meta name="msvalidate.01" content="BEC5ECE802A8A53BCC27EFE370E239B4" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
