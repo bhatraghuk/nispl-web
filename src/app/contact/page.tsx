@@ -27,34 +27,62 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setIsSubmitting(true)
 
-  // Your existing form handling code...
-  // (keep whatever you already have here)
-
-  // ── Add this block ────────────────────────────────────────────
   try {
-    await fetch('https://lead.netiquetteinfo.com/lead-capture', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name:    formData.name,
-        email:   formData.email,
-        phone:   formData.phone,
-        company: formData.company,
-        service: formData.service,   // maps projectType → service
-        budget:  formData.budget,
-        source:  'Website Contact Form',
-        message: formData.message,       // bonus context
-      }),
-    });
-  } catch (err) {
-    console.error('Lead capture error:', err);
-    // Silent fail — don't show errors to the user for this
+    // ── Send to Lead Capture webhook ─────────────────────────────
+    try {
+      await fetch('https://lead.netiquetteinfo.com/lead-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:    formData.name,
+          email:   formData.email,
+          phone:   formData.phone,
+          company: formData.company,
+          service: formData.service,
+          budget:  formData.budget,
+          source:  'Website Contact Form',
+          message: formData.message,
+        }),
+      })
+    } catch (webhookErr) {
+      console.error('[Lead Capture]', webhookErr)
+      // Silent fail — never block the form submission
+    }
+    // ─────────────────────────────────────────────────────────────
+
+    setIsSubmitting(false)
+    setIsSubmitted(true)
+
+    toast({
+      title: "Message Sent!",
+      description: "We'll get back to you within 24 hours.",
+      variant: "default",
+    })
+
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setFormData({
+        name: '', email: '', company: '',
+        phone: '', service: '', budget: '', message: '',
+      })
+      setIsSubmitted(false)
+    }, 3000)
+
+  } catch (error) {
+    setIsSubmitting(false)
+    console.error('Error submitting form:', error)
+    toast({
+      title: "Error",
+      description: "Failed to send message. Please try again.",
+      variant: "destructive",
+    })
   }
-  // ──────────────────────────────────────────────────────────────
-};
+}
+
 
 
   // const handleSubmit = async (e: React.FormEvent) => {
